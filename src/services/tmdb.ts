@@ -1,7 +1,7 @@
 import { Movie, MovieDetails, MovieCredits, Genre, TMDBResponse } from '@/types/types';
 
 const TMDB_BASE = 'https://api.themoviedb.org/3';
-const TMDB_API_KEY = process.env.TMDB_API_KEY || '';
+const TMDB_API_KEY = (process.env.TMDB_API_KEY || '').trim();
 export const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
 
 // In-memory cache with TTL
