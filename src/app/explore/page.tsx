@@ -11,6 +11,8 @@ import MovieRow from '@/components/MovieRow';
 import Link from 'next/link';
 import { Movie, Genre } from '@/types/types';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Explore',
   description: 'Discover trending, top rated, and genre-specific movies. Browse curated collections of the best films.',

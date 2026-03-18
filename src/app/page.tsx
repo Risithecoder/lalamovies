@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { getTrending, getPopular, getNowPlaying, getTopRated } from '@/services/tmdb';
 import HeroSection from '@/components/HeroSection';
 import MovieRow from '@/components/MovieRow';
