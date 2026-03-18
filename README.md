@@ -1,36 +1,127 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# LaLaMovies 🎬
+
+A modern movie streaming and discovery platform built with Next.js, TypeScript, and Tailwind CSS.
+
+![LaLaMovies](https://image.tmdb.org/t/p/original/placeholder.jpg)
+
+## Features
+
+- 🔥 Trending, Popular, and Top Rated movie sections
+- 🎬 Movie detail pages with streaming player
+- 🔍 Instant search with live results
+- 📁 Genre browsing
+- 🧠 Curated collections (Mind-Bending, Space, Hidden Gems)
+- 📱 Fully responsive design
+- ⚡ Server-side rendering for fast load times
+- 🔎 SEO optimized with Open Graph & JSON-LD schema
+- 🗺️ Auto-generated sitemap
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Framework | Next.js 15 (App Router) |
+| Language | TypeScript |
+| Styling | Tailwind CSS |
+| Movie Data | TMDB API |
+| Streaming | Vidfast embed player |
+| Hosting | Vercel |
+| CDN/DNS | Cloudflare |
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+
+- npm
+- TMDB API key ([get one here](https://www.themoviedb.org/settings/api))
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/lalamovies.git
+cd lalamovies
+
+# Install dependencies
+npm install
+
+# Set up environment variables
+cp .env.example .env.local
+# Edit .env.local and add your TMDB API key
+```
+
+### Development
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the app.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Production Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+## Environment Variables
 
-To learn more about Next.js, take a look at the following resources:
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `TMDB_API_KEY` | ✅ | Your TMDB API key |
+| `NEXT_PUBLIC_SITE_URL` | Optional | Site URL for SEO (default: `https://lalamovies.com`) |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+src/
+├── app/
+│   ├── api/search/       # Search API route
+│   ├── explore/          # Explore page
+│   ├── genre/[slug]/     # Genre pages
+│   ├── movie/[slug]/     # Movie detail pages
+│   ├── search/           # Search results page
+│   ├── globals.css       # Global styles & design tokens
+│   ├── layout.tsx        # Root layout
+│   ├── page.tsx          # Homepage
+│   ├── robots.ts         # Robots.txt
+│   └── sitemap.ts        # Dynamic sitemap
+├── components/
+│   ├── Footer.tsx
+│   ├── HeroSection.tsx
+│   ├── MovieCard.tsx
+│   ├── MovieGrid.tsx
+│   ├── MovieRow.tsx
+│   ├── Navbar.tsx
+│   ├── Player.tsx
+│   ├── SearchBar.tsx
+│   └── ServerSelector.tsx
+├── services/
+│   ├── streaming.ts      # Streaming server config
+│   └── tmdb.ts           # TMDB API service with caching
+└── types/
+    └── types.ts          # TypeScript interfaces
+```
 
-## Deploy on Vercel
+## Deployment to Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Push your code to GitHub
+2. Go to [vercel.com](https://vercel.com) and import the repository
+3. Add environment variables:
+   - `TMDB_API_KEY` — your TMDB API key
+   - `NEXT_PUBLIC_SITE_URL` — your domain
+4. Deploy!
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Cloudflare DNS Setup
+
+1. Add your domain to Cloudflare
+2. Point DNS records to Vercel:
+   - `A` record → `76.76.21.21`
+   - `CNAME` record for `www` → `cname.vercel-dns.com`
+3. Set SSL mode to **Full (strict)**
+
+## License
+
+MIT
