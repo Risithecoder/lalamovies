@@ -1,18 +1,44 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import Player from '@/components/Player';
 import ServerSelector from '@/components/ServerSelector';
 import { getStreamUrl, STREAMING_SERVERS } from '@/services/streaming';
+import { useContinueWatching } from '@/hooks/useContinueWatching';
 
 interface MoviePlayerSectionProps {
   movieId: number;
   movieTitle: string;
+  movieSlug: string;
+  posterPath: string | null;
+  releaseDate: string;
+  voteAverage: number;
 }
 
-export default function MoviePlayerSection({ movieId, movieTitle }: MoviePlayerSectionProps) {
+export default function MoviePlayerSection({
+  movieId,
+  movieTitle,
+  movieSlug,
+  posterPath,
+  releaseDate,
+  voteAverage,
+}: MoviePlayerSectionProps) {
   const [activeServer, setActiveServer] = useState(STREAMING_SERVERS[0].id);
   const streamUrl = getStreamUrl(activeServer, movieId);
+  const { saveProgress } = useContinueWatching();
+
+  // Save to "Continue Watching" once per movie visit
+  useEffect(() => {
+    saveProgress({
+      movieId,
+      title: movieTitle,
+      poster_path: posterPath,
+      release_date: releaseDate,
+      vote_average: voteAverage,
+      slug: movieSlug,
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [movieId]);
 
   const tryNextServer = useCallback(() => {
     const currentIndex = STREAMING_SERVERS.findIndex((s) => s.id === activeServer);

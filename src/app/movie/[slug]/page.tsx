@@ -6,9 +6,13 @@ import {
   getSimilarMovies,
   getPosterUrl,
   getBackdropUrl,
+  generateSlug,
 } from '@/services/tmdb';
 import MovieRow from '@/components/MovieRow';
 import MoviePlayerSection from './MoviePlayerSection';
+import TrailerModal from '@/components/TrailerModal';
+import WatchlistButton from '@/components/WatchlistButton';
+import RecentlyViewedTracker from '@/components/RecentlyViewedTracker';
 
 interface MoviePageProps {
   params: Promise<{ slug: string }>;
@@ -73,6 +77,7 @@ export default async function MoviePage({ params }: MoviePageProps) {
   const backdropUrl = getBackdropUrl(movie.backdrop_path);
   const topCast = credits.cast.slice(0, 12);
   const director = credits.crew.find((c) => c.job === 'Director');
+  const movieSlug = `${generateSlug(movie.title, movie.release_date)}-${movie.id}`;
 
   // JSON-LD structured data
   const jsonLd = {
@@ -184,14 +189,30 @@ export default async function MoviePage({ params }: MoviePageProps) {
                 <span className="text-white font-medium">Director:</span> {director.name}
               </p>
             )}
+
+            {/* Action buttons */}
+            <div className="flex flex-wrap gap-3">
+              <WatchlistButton movie={movie} />
+              <TrailerModal movieId={movie.id} movieTitle={movie.title} />
+            </div>
           </div>
         </div>
 
         {/* Streaming Player */}
         <div className="mt-10">
           <h2 className="text-2xl font-bold text-white mb-4">🎬 Watch Now</h2>
-          <MoviePlayerSection movieId={movie.id} movieTitle={movie.title} />
+          <MoviePlayerSection
+            movieId={movie.id}
+            movieTitle={movie.title}
+            movieSlug={movieSlug}
+            posterPath={movie.poster_path}
+            releaseDate={movie.release_date}
+            voteAverage={movie.vote_average}
+          />
         </div>
+
+        {/* Side-effect: track this movie as recently viewed */}
+        <RecentlyViewedTracker movie={movie} />
 
         {/* Cast */}
         {topCast.length > 0 && (

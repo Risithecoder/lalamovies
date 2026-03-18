@@ -180,3 +180,7 @@ export const GENRE_SLUG_MAP: Record<string, number> = {
 export function getGenreSlug(name: string): string {
   return name.toLowerCase().replace(/\s+/g, '-');
 }
+
+export async function getMovieVideos(id: number): Promise<{ results: import('@/types/types').VideoResult[] }> {
+  return tmdbFetch<{ results: import('@/types/types').VideoResult[] }>(`/movie/${id}/videos`);
+}

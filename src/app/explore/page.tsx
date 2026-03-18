@@ -10,6 +10,7 @@ import {
 import MovieRow from '@/components/MovieRow';
 import Link from 'next/link';
 import { Movie, Genre } from '@/types/types';
+import FilteredMovieGrid from '@/components/FilteredMovieGrid';
 
 export const dynamic = 'force-dynamic';
 
@@ -53,6 +54,9 @@ export default async function ExplorePage() {
         <p className="text-muted mb-10">
           Discover your next favorite movie
         </p>
+
+        {/* Advanced Discover with filters */}
+        <FilteredMovieGrid genres={genres} initialMovies={trending} />
 
         {/* Trending */}
         <MovieRow title="🔥 Trending Now" movies={trending} />

@@ -4,13 +4,14 @@ import MovieCard from './MovieCard';
 interface MovieGridProps {
   movies: Movie[];
   cardWidth?: number;
+  emptyMessage?: string;
 }
 
-export default function MovieGrid({ movies, cardWidth = 200 }: MovieGridProps) {
+export default function MovieGrid({ movies, cardWidth = 200, emptyMessage = 'No movies found' }: MovieGridProps) {
   if (!movies || movies.length === 0) {
     return (
       <div className="flex items-center justify-center py-20">
-        <p className="text-muted text-lg">No movies found</p>
+        <p className="text-muted text-lg">{emptyMessage}</p>
       </div>
     );
   }

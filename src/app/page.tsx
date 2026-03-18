@@ -5,6 +5,9 @@ import HeroSection from '@/components/HeroSection';
 import MovieRow from '@/components/MovieRow';
 import Link from 'next/link';
 import { Movie } from '@/types/types';
+import ContinueWatchingRow from '@/components/ContinueWatchingRow';
+import RecentlyViewedRow from '@/components/RecentlyViewedRow';
+import BoredButton from '@/components/BoredButton';
 
 async function safeFetch<T>(fn: () => Promise<T>, fallback: T): Promise<T> {
   try {
@@ -32,19 +35,24 @@ export default async function HomePage() {
 
       {/* Movie Rows */}
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 -mt-16 relative z-10 space-y-2">
+        {/* LocalStorage-driven rows (rendered client-side, invisible until populated) */}
+        <ContinueWatchingRow />
+        <RecentlyViewedRow />
+
         <MovieRow title="🔥 Trending This Week" movies={trending.slice(1)} />
         <MovieRow title="🎬 Popular Movies" movies={popular} />
         <MovieRow title="🍿 Now Playing" movies={nowPlaying} />
         <MovieRow title="⭐ Top Rated" movies={topRated} />
 
-        {/* Explore CTA */}
-        <div className="flex justify-center py-8">
+        {/* CTA */}
+        <div className="flex flex-wrap items-center justify-center gap-4 py-8">
           <Link
             href="/explore"
             className="px-8 py-3 bg-accent hover:bg-accent-hover text-white font-semibold rounded-lg transition-colors"
           >
             Explore More Movies →
           </Link>
+          <BoredButton />
         </div>
       </div>
     </div>

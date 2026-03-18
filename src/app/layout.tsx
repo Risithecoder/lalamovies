@@ -3,6 +3,8 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import ThemeProvider from '@/components/ThemeProvider';
+import BottomNav from '@/components/BottomNav';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -41,11 +43,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
+      {/* Inline script prevents light-mode flash before hydration */}
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{if(localStorage.getItem('lala_theme')==='light'){document.documentElement.classList.add('light-mode');}}catch(e){}})()`,
+          }}
+        />
+      </head>
       <body className={`${inter.variable} font-sans antialiased bg-background text-foreground min-h-screen`}>
-        <Navbar />
-        <main className="min-h-screen">{children}</main>
-        <Footer />
+        <ThemeProvider>
+          <Navbar />
+          <main className="min-h-screen pb-16 sm:pb-0">{children}</main>
+          <Footer />
+          <BottomNav />
+        </ThemeProvider>
       </body>
     </html>
   );
