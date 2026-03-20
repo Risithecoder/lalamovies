@@ -52,7 +52,7 @@ export default async function GenrePage({ params }: GenrePageProps) {
   return (
     <div className="page-enter pt-24">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="text-3xl font-bold text-white mb-2">{genre.name} Movies</h1>
+        <h1 className="text-3xl font-bold text-foreground mb-2">{genre.name} Movies</h1>
         <p className="text-muted mb-8">
           {data.total_results.toLocaleString()} movies found
         </p>

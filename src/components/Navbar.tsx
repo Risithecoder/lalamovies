@@ -62,7 +62,10 @@ export default function Navbar() {
                 Home
               </Link>
               <Link href="/explore" className="text-sm font-medium text-muted hover:text-foreground transition-colors">
-                Explore
+                Movies
+              </Link>
+              <Link href="/series" className="text-sm font-medium text-muted hover:text-foreground transition-colors">
+                TV Shows
               </Link>
               <Link href="/watchlist" className="text-sm font-medium text-muted hover:text-foreground transition-colors">
                 Watchlist
@@ -93,7 +96,7 @@ export default function Navbar() {
               <button
                 onClick={() => setSearchOpen(true)}
                 className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface hover:bg-surface-hover transition-colors text-muted hover:text-foreground"
-                aria-label="Search movies"
+                aria-label="Search"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />

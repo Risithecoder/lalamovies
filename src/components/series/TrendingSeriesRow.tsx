@@ -1,28 +1,34 @@
+/**
+ * TrendingSeriesRow
+ * -----------------
+ * Horizontal scroll row of SeriesCard components.
+ * Accepts TVShow[] as props (fetched server-side, like MovieRow).
+ */
+
 'use client';
 
 import { useRef } from 'react';
-import { Movie } from '@/types/types';
-import MovieCard from './MovieCard';
+import { TVShow } from '@/types/types';
+import SeriesCard from './SeriesCard';
 
-interface MovieRowProps {
+interface TrendingSeriesRowProps {
   title: string;
-  movies: Movie[];
+  shows: TVShow[];
   cardWidth?: number;
 }
 
-export default function MovieRow({ title, movies, cardWidth = 200 }: MovieRowProps) {
+export default function TrendingSeriesRow({ title, shows, cardWidth = 200 }: TrendingSeriesRowProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const scroll = (direction: 'left' | 'right') => {
     if (!scrollRef.current) return;
-    const scrollAmount = cardWidth * 3;
     scrollRef.current.scrollBy({
-      left: direction === 'left' ? -scrollAmount : scrollAmount,
+      left: direction === 'left' ? -cardWidth * 3 : cardWidth * 3,
       behavior: 'smooth',
     });
   };
 
-  if (!movies || movies.length === 0) return null;
+  if (!shows || shows.length === 0) return null;
 
   return (
     <section className="mb-10">
@@ -50,8 +56,8 @@ export default function MovieRow({ title, movies, cardWidth = 200 }: MovieRowPro
         </div>
       </div>
       <div ref={scrollRef} className="scroll-row px-4 sm:px-0">
-        {movies.map((movie) => (
-          <MovieCard key={movie.id} movie={movie} width={cardWidth} />
+        {shows.map((show) => (
+          <SeriesCard key={show.id} show={show} width={cardWidth} />
         ))}
       </div>
     </section>

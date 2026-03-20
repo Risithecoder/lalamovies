@@ -8,5 +8,5 @@ export default function RecentlyViewedRow() {
 
   if (!recentlyViewed.length) return null;
 
-  return <MovieRow title="🕐 Recently Viewed" movies={recentlyViewed} />;
+  return <MovieRow title="Recently Viewed" movies={recentlyViewed} />;
 }

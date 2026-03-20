@@ -141,7 +141,7 @@ export default async function MoviePage({ params }: MoviePageProps) {
 
           {/* Movie Info */}
           <div className="flex-1 min-w-0">
-            <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2">
+            <h1 className="text-3xl sm:text-4xl font-bold text-foreground mb-2">
               {movie.title}
             </h1>
 
@@ -160,7 +160,7 @@ export default async function MoviePage({ params }: MoviePageProps) {
               {movie.vote_average > 0 && (
                 <>
                   <span className="w-1 h-1 bg-muted rounded-full" />
-                  <span className="text-yellow-400">⭐ {movie.vote_average.toFixed(1)}</span>
+                  <span className="text-yellow-400">{movie.vote_average.toFixed(1)}</span>
                   <span className="text-xs">({movie.vote_count.toLocaleString()} votes)</span>
                 </>
               )}
@@ -180,13 +180,13 @@ export default async function MoviePage({ params }: MoviePageProps) {
 
             {/* Overview */}
             <div className="mb-8">
-              <h2 className="text-lg font-semibold text-white mb-2">Overview</h2>
-              <p className="text-gray-300 leading-relaxed">{movie.overview}</p>
+              <h2 className="text-lg font-semibold text-foreground mb-2">Overview</h2>
+              <p className="text-muted leading-relaxed">{movie.overview}</p>
             </div>
 
             {director && (
               <p className="text-sm text-muted mb-6">
-                <span className="text-white font-medium">Director:</span> {director.name}
+                <span className="text-foreground font-medium">Director:</span> {director.name}
               </p>
             )}
 
@@ -200,7 +200,7 @@ export default async function MoviePage({ params }: MoviePageProps) {
 
         {/* Streaming Player */}
         <div className="mt-10">
-          <h2 className="text-2xl font-bold text-white mb-4">🎬 Watch Now</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-4">Watch Now</h2>
           <MoviePlayerSection
             movieId={movie.id}
             movieTitle={movie.title}
@@ -217,7 +217,7 @@ export default async function MoviePage({ params }: MoviePageProps) {
         {/* Cast */}
         {topCast.length > 0 && (
           <section className="mt-12">
-            <h2 className="text-xl font-bold text-white mb-4">Cast</h2>
+            <h2 className="text-xl font-bold text-foreground mb-4">Cast</h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
               {topCast.map((person) => (
                 <div
@@ -236,11 +236,11 @@ export default async function MoviePage({ params }: MoviePageProps) {
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center text-muted text-xl">
-                        👤
+                        
                       </div>
                     )}
                   </div>
-                  <p className="text-sm font-medium text-white truncate">{person.name}</p>
+                  <p className="text-sm font-medium text-foreground truncate">{person.name}</p>
                   <p className="text-xs text-muted truncate">{person.character}</p>
                 </div>
               ))}

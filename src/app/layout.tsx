@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import Navbar from '@/components/Navbar';
+import NavbarWrapper from '@/components/NavbarWrapper';
 import Footer from '@/components/Footer';
 import ThemeProvider from '@/components/ThemeProvider';
-import BottomNav from '@/components/BottomNav';
+import SearchOverlay from '@/components/SearchOverlay';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -52,14 +52,15 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.variable} font-sans antialiased bg-background text-foreground min-h-screen`}>
+      <body className={`${inter.variable} font-sans antialiased bg-background text-foreground min-h-screen flex flex-col`}>
         <ThemeProvider>
-          <Navbar />
-          <main className="min-h-screen pb-16 sm:pb-0">{children}</main>
+          <NavbarWrapper />
+          <SearchOverlay />
+          <main className="flex-1 w-full flex flex-col">{children}</main>
           <Footer />
-          <BottomNav />
         </ThemeProvider>
       </body>
     </html>
   );
 }
+

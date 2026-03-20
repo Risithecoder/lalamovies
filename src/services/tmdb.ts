@@ -1,4 +1,4 @@
-import { Movie, MovieDetails, MovieCredits, Genre, TMDBResponse } from '@/types/types';
+import { Movie, MovieDetails, MovieCredits, Genre, TMDBResponse, TVShow, TVShowDetails, TVSeasonDetails, MultiSearchResult } from '@/types/types';
 
 const TMDB_BASE = 'https://api.themoviedb.org/3';
 const TMDB_API_KEY = (process.env.TMDB_API_KEY || '').trim();
@@ -98,6 +98,22 @@ export async function searchMovies(query: string, page = 1): Promise<TMDBRespons
   });
 }
 
+export async function searchTV(query: string, page = 1): Promise<TMDBResponse<TVShow>> {
+  return tmdbFetch<TMDBResponse<TVShow>>('/search/tv', {
+    query,
+    page: String(page),
+    include_adult: 'false',
+  });
+}
+
+export async function searchMulti(query: string, page = 1): Promise<TMDBResponse<MultiSearchResult>> {
+  return tmdbFetch<TMDBResponse<MultiSearchResult>>('/search/multi', {
+    query,
+    page: String(page),
+    include_adult: 'false',
+  });
+}
+
 // ─── Genres ───────────────────────────────────────────────────
 
 export async function getGenres(): Promise<Genre[]> {
@@ -123,6 +139,59 @@ export async function discoverMovies(params: Record<string, string>): Promise<Mo
     ...params,
   });
   return data.results;
+}
+
+export async function discoverTV(params: Record<string, string>): Promise<TVShow[]> {
+  const data = await tmdbFetch<TMDBResponse<TVShow>>('/discover/tv', {
+    sort_by: 'popularity.desc',
+    include_adult: 'false',
+    ...params,
+  });
+  return data.results;
+}
+
+// ─── TV Series Lists ─────────────────────────────────────────
+
+export async function getTrendingTV(timeWindow: 'day' | 'week' = 'week'): Promise<TVShow[]> {
+  const data = await tmdbFetch<TMDBResponse<TVShow>>(`/trending/tv/${timeWindow}`);
+  return data.results;
+}
+
+export async function getPopularTV(page = 1): Promise<TVShow[]> {
+  const data = await tmdbFetch<TMDBResponse<TVShow>>('/tv/popular', { page: String(page) });
+  return data.results;
+}
+
+export async function getTopRatedTV(page = 1): Promise<TVShow[]> {
+  const data = await tmdbFetch<TMDBResponse<TVShow>>('/tv/top_rated', { page: String(page) });
+  return data.results;
+}
+
+export async function getAiringTodayTV(page = 1): Promise<TVShow[]> {
+  const data = await tmdbFetch<TMDBResponse<TVShow>>('/tv/airing_today', { page: String(page) });
+  return data.results;
+}
+
+// ─── TV Series Details ───────────────────────────────────────
+
+export async function getTVDetails(id: number): Promise<TVShowDetails> {
+  return tmdbFetch<TVShowDetails>(`/tv/${id}`);
+}
+
+export async function getTVSeasonDetails(tvId: number, seasonNumber: number): Promise<TVSeasonDetails> {
+  return tmdbFetch<TVSeasonDetails>(`/tv/${tvId}/season/${seasonNumber}`);
+}
+
+export async function getSimilarTV(id: number): Promise<TVShow[]> {
+  const data = await tmdbFetch<TMDBResponse<TVShow>>(`/tv/${id}/similar`);
+  return data.results;
+}
+
+// ─── TV Genres ───────────────────────────────────────────────
+
+export async function getTVGenres(): Promise<Genre[]> {
+  const data = await tmdbFetch<{ genres: Genre[] }>('/genre/tv/list');
+  return data.genres;
 }
 
 // ─── Helpers ──────────────────────────────────────────────────

@@ -58,7 +58,7 @@ export default function HeroSection({ movie }: HeroSectionProps) {
               {movie.vote_average > 0 && (
                 <>
                   <span className="w-1 h-1 bg-muted rounded-full" />
-                  <span className="text-yellow-400">⭐ {movie.vote_average.toFixed(1)}</span>
+                  <span className="text-yellow-400">{movie.vote_average.toFixed(1)}</span>
                 </>
               )}
             </div>

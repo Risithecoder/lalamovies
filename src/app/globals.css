@@ -36,6 +36,18 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* ── Video player tokens ── */
+:root {
+  --player-bg: #000;
+  --player-controls-bg: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
+  --progress-fill: var(--accent);
+  --scrubber-thumb: #fff;
+  --overlay-text: rgba(255, 255, 255, 0.92);
+}
+
+/* ── Spring easing variable ── */
+/* cubic-bezier(0.22, 1, 0.36, 1) — used via inline styles or animation declarations */
+
 /* Horizontal scroll rows */
 .scroll-row {
   display: flex;
@@ -84,6 +96,17 @@ body {
   100% { background-position: -200% 0; }
 }
 
+@keyframes shine {
+  0% { transform: translateX(-100%); }
+  50% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { transform: translateX(-100%); }
+  50% { transform: translateX(100%); }
+}
+
 /* Hero fade */
 .hero-gradient {
   background: linear-gradient(
@@ -103,6 +126,12 @@ body {
     rgba(15, 15, 15, 0.6) 40%,
     transparent 100%
   );
+}
+
+/* Hero carousel content entrance */
+@keyframes heroContentIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* Page transitions */
